@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Final Project</title>
+
+         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+           crossorigin=""/>
+
+         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+           integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+           crossorigin=""></script>
+		   
+		   
+<style type="text/css">
+/* Resetting default margin and padding for HTML and body */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/* Styling for map containers */
+.map-container {
+    position: relative;
+    margin-bottom: 50px; /* Add margin between map containers */
+}
+
+.scrollable-map {
+    width: 100%;
+    height: 100%;
+}
+
+/* Styling for individual maps */
+.map {
+    min-height: 100%;
+    margin-bottom: 50px; /* Add margin between map containers */
+}
+
+/* Adjusting the height of map containers */
+#map-container1,
+#map-container2,
+#map-container3,
+#map-container4 {
+    height: 150vh;
+    margin-bottom: 50px; /* Add margin between map containers */
+}
+
+	
+	
+          /* Optional: adjust the values below to change the appearance of the legend */
+          .legend {
+              padding: 6px 8px;
+              line-height: 18px;
+              background: rgba(255,255,255,0.9);
+              box-shadow: 0 0 15px rgba(0,0,0,0.2);
+              border-radius: 5px;
+          }
+
+           /* Optional: adjust the values below to change the appearance of the legend color boxes */
+           .legend i {
+              width: 18px;
+              height: 18px;
+              float: left;
+              margin-right: 8px;
+              opacity: 1;
+          }
+		  
+	
+    .title1 {
+        padding: 6px 8px;
+        font-family: Georgia, serif;
+		font-size: 16px;
+		letter-spacing: 1px;
+		word-spacing: 2px;
+		font-weight: 700;
+		text-decoration: none solid rgb(68, 68, 68);
+		font-style: normal;
+		font-variant: small-caps;
+		text-transform: none;
+        color: rgb(251, 253, 248);
+        background: #d95f0e;
+        box-shadow: 0 0 20px rgb(1, 1, 4);
+        border-radius: 5px;
+        text-align: center;
+    }
+
+    .title2 {
+        padding: 6px 8px;
+        font-family: Georgia, serif;
+		font-size: 16px;
+		letter-spacing: 1px;
+		word-spacing: 2px;
+		font-weight: 700;
+		text-decoration: none solid rgb(68, 68, 68);
+		font-style: normal;
+		font-variant: small-caps;
+		text-transform: none;
+        color: rgb(251, 253, 248);
+        background: #d95f0e;
+        box-shadow: 0 0 20px rgb(1, 1, 4);
+        border-radius: 5px;
+        text-align: center;
+    }
+	
+	
+    .title3 {
+        padding: 6px 8px;
+        font-family: Georgia, serif;
+		font-size: 16px;
+		letter-spacing: 1px;
+		word-spacing: 2px;
+		font-weight: 700;
+		text-decoration: none solid rgb(68, 68, 68);
+		font-style: normal;
+		font-variant: small-caps;
+		text-transform: none;
+        color: rgb(251, 253, 248);
+        background: #c51b8a;
+        box-shadow: 0 0 20px rgb(1, 1, 4);
+        border-radius: 5px;
+        text-align: center;
+    }
+	    .title4 {
+        padding: 6px 8px;
+        font-family: Georgia, serif;
+		font-size: 16px;
+		letter-spacing: 1px;
+		word-spacing: 2px;
+		font-weight: 700;
+		text-decoration: none solid rgb(68, 68, 68);
+		font-style: normal;
+		font-variant: small-caps;
+		text-transform: none;
+        color: rgb(251, 253, 248);
+        background: #c51b8a;
+        box-shadow: 0 0 20px rgb(1, 1, 4);
+        border-radius: 5px;
+        text-align: center;
+    }
+	
+        .map-text-box {
+            display: inline-block;
+            padding: 20px;
+            background-color: #ffffff; /* Change the background color as needed */
+            border: 2px solid #e62e00; /* Change the border color as needed */
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: bold;
+			font-family: Georgia, serif;
+            color: #000000; /* Change the text color as needed */
+        }
+
+</style>
+
+		 <script type="text/javascript" src="block_2020.js"></script>
+		 <script type="text/javascript" src="block_2010.js"></script>
+		 <script type="text/javascript" src="block_2000.js"></script>
+		 	
+    <script type="text/javascript" src="tract_2020.js"></script>
+    <script type="text/javascript" src="tract_2010.js"></script>
+    <script type="text/javascript" src="tract_2000.js"></script>
+
+    </head>
+	<body>
+	
+    <div id="map-container">
+        <!-- Map 1 -->
+ <div id="map1" style="height: 500px" class="scrollable-map"></div>
+        <div class="map-text-container">
+            <div class="map-text-box"><br>These four maps were my attempts to visualize how borders shape and define segregation in the city of Chicago, and to understand whether changes to tract boundaries from the year 2000 through 2020 have a correlation with emergent population reorganization patterns. This work is an extension of my very in-progress thesis project in which I investigate community perceptions of their own neighborhoods and the role of boundaries and borders in shaping these perceptions. The two study areas for both my thesis and this mapping project are 1) Austin and Oak Park, and 2) Rogers Park, Edgewater, and Uptown. <br></p>
+        </div>
+        <div id="map2" style="height: 500px" class="scrollable-map"></div>
+        <div class="map-text-container">
+            <div class="map-text-box"><br>Ultimately, I found that the initial perceptions that I had about the two areas, part of what led me to choose them to begin with, were founded. As you can see from the Austin and Oak Park maps, there is a stark racial divide between the two neighboring communities. This divide falls along Austin Blvd, serving as the North-South border between Austin to the east and Oak Park to the west. North Ave provides a more subtle boundary between the northernmost edge of Oak Park and the piece of Austin that protrudes over above Oak Park to the northwest. This protruding area is geographically distinct from the rest of Austin, and has the highest concentration of white residents. I do not believe this to be coincidental, but a reflection of how government enforced spatial divisions do not always reflect the community experience. <br><br> Another pattern seen between 2000 and 2020 is the gradually dwindling percentages of Black folks across most blocks in the Austin neighborhood. Whereas the year 2000 showed that a majority of blocks in Austin comprised over 80% Black residents, by 2020, many blocks saw reduced concentrations between 40%-80%. There doesn't seem to be a significantly higher population of white residents in these areas, but there are many other racial and ethnic groups I haven't accounted for. I'd speculate that this is connected to the much-studied migration of Black people moving out of Chicago since the 1980s and the subsequent reduction in the city's Black population.  </p>
+
+        <!-- Map 3 -->
+        </div>
+        <div id="map3" style="height: 600px" class="scrollable-map"></div>
+        <div class="map-text-container">
+            <div class="map-text-box">I chose this second study area in contrast to Austin and Oak Park, because of the borders being less visibly and experientially obvious.   The distribution of wealth is a large contributer to perceived solidity or flexibility of borders, because visual markers of wealth are very often used to assess "safety". In the case of this study area, surface level wealth seems to be somewhat evenly distributed across Rogers Park, Edgewater, and Uptown. Integration of distinct markers of wealth (fancy grocery stores, boutiques, coffee shops, single-family homes) and poverty (abandoned buildings, limited food options, fewer green spaces) like found in these community areas, challenge our preconcieved notions of what neighborhood boundaries should look like. One could move from Rogers Park to Uptown with little awareness that the identity of the area has changed, but might experience a drastic shift moving from the working-class neighborhoods on the west side towards the highrises along Lake Michigan.  <br> <br> Despite appearances, this northern and easternmost part of the city is broadly regarded as wealthier and whiter than the south and west sides of Chicago. Data from 2000-2020 certainly supports the narrative of whiter populations, with most blocks showing that white residents comprise over 40%, but frequently 60%-80%, of the population. There not, however, an immediately evident pattern to the distribution of blocks with greater or fewer white residents. Blocks where white people comprise 80%+ of the population might sit adjacent to blocks with a 20%-40% composition. The randomness of this pattern points to the need for further investigation into what other factors  might define racial divisions.     </p>
+		
+		        <!-- Map 4 -->
+        </div>
+        <div id="map4" style="height: 600px" class="scrollable-map"></div>
+        <div class="map-text-container">
+            <div class="map-text-box">There is a more visually evident pattern to the distribition of Black populations across Rogers Park, Edgewater, and Uptown than white populations. Higher concentrations of Black people exist on the far north side of Rogers Park, in the center of Uptown, and along the north-south bound Red Line train. This pattern can be seen across all three decades. Black people consistantly comprise 20%-60% of the population in these three areas from 2000 and 2020 as opposed to most other blocks which show that black populations make up between 0%-20%. <br><br> I didn't  find any obvious evidence to indicate that changes in tract boundaries had any visual correlation to racial population patterns. Few drastic changes to tract boundaries were made between 2000-2020 with most tracts remained reletively consistant. The most common change was the division of a single tract into two or more parts. There are two instances of that happening in Oak Park and Austin between 2000-2020, but approximately seventeen examples of this happening in Rogers Park, Edgewater, and Uptown. I would guess that the motivation for these divisions had more to do with population growth than race. <br>   </p>
+</div>
+
+<script type="text/javascript">
+		
+// NOW ADDING FIRST A/OP Map
+
+          var map1 = L.map('map1', {
+              center: [41.8917916,-87.7912124],
+              zoom: 13
+          });
+		  
+        var Esri_WorldGrayCanvas1 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+            maxZoom: 16
+        }).addTo(map1);
+			
+       // getColor function
+        function getColor1(value) {
+            return value > 80 ? '#a63603' :
+                value > 60 ? '#e6550d' :
+                    value > 40 ? '#fd8d3c' :
+                        value > 20 ? '#fdbe85' :
+                            '#feedde';
+        }
+
+        // Define a common style function
+        function commonStyle1(feature) {
+            var value = feature.properties.Perc_White; 
+            return {
+                fillColor: getColor1(value),
+                weight: 0,
+                opacity: 1,
+                color: 'gray',
+                fillOpacity: 0.9
+            };
+        }
+		
+		function highlightFeature(e) {
+    // Get access to the feature that was hovered through e.target
+    var feature = e.target;
+
+    // Set a thick grey border on the feature as mouseover effect
+    // Adjust the values below to change the highlighting styles of features on mouseover
+    // Check out https://leafletjs.com/reference-1.3.4.html#path for more options for changing style
+    feature.setStyle({
+        weight: 2,
+        color: 'black',
+        fillOpacity: 1
+    });
+
+    // Bring the highlighted feature to front so that the border doesn’t clash with nearby states
+    // But not for IE, Opera or Edge, since they have problems doing bringToFront on mouseover
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        feature.bringToFront();
+    }
+}
+var geojson; // define a variable to make the geojson layer accessible for the funtion to use   
+            
+function resetHighlight(e) {
+    var layer = e.target;
+    layer.setStyle({
+        weight: 0,
+        color: 'gray',
+        fillOpacity: 0
+    });
+}
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature, // Do what defined by the highlightFeature function on mouseover
+        mouseout: resetHighlight,    // Do what defined by the resetHighlight function on mouseout
+    });
+}
+		
+        // Add the GeoJSON layers to map1
+          
+		     var tract2020_map1 = L.geoJSON(data1, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+		    var tract2010_map1 = L.geoJSON(data3, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+		var tract2000_map1 = L.geoJSON(data5, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+
+		  var block2020_map1 = L.geoJSON(data, { style: commonStyle1, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_White + '<p style="color:purple">' + layer.feature.properties.Perc_White.toString() + ' % of Total Population </p>';
+    });
+		    
+		     
+    var block2010_map1 = L.geoJSON(data2, { style: commonStyle1, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_White + '<p style="color:purple">' + layer.feature.properties.Perc_White.toString() + ' % of Total Population </p>';
+    });
+		
+	
+    var block2000_map1 = L.geoJSON(data4, { style: commonStyle1, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_White + '<p style="color:purple">' + layer.feature.properties.Perc_White.toString() + ' % of Total Population </p>';
+    });
+	
+
+
+
+			tract2000_map1.addTo(map1);
+			 tract2010_map1.addTo(map1);
+			    tract2020_map1.addTo(map1);
+    block2000_map1.addTo(map1);
+			
+    block2010_map1.addTo(map1);
+		
+    block2020_map1.addTo(map1);
+		   
+	
+     
+        // Legend for map1
+              var legend_map1 = L.control({ position: 'bottomright' });
+        legend_map1.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'legend'),
+                grades = [0, 20, 40, 60, 80];
+
+            div.innerHTML = '<b> % White Population, by Block <br></b>';
+
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor1(grades[i] + 1) + '"></i>' +
+                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            }
+
+            return div;
+        };
+
+        legend_map1.addTo(map1);
+		
+		// Create Layer Groups for Tract Boundaries
+var tractBoundariesMap1 = {
+    "2020 Tract Boundaries": tract2020_map1,
+	"2010 Tract Boundaries": tract2010_map1,
+	"2000 Tract Boundaries": tract2000_map1
+
+};
+
+
+        var overlaymaps1 = {
+            "2020 Demographics": block2020_map1,
+            "2010 Demographics": block2010_map1,
+            "2000 Demographics": block2000_map1
+        };
+
+        L.control.layers(overlaymaps1, tractBoundariesMap1).addTo(map1);
+		map1.removeLayer(tract2020_map1);
+map1.removeLayer(tract2010_map1);
+map1.removeLayer(tract2000_map1);
+
+
+
+
+        // Removing/Adding the legend when the layer is removed/added
+        map1.on('overlayremove', function (eventLayer) {
+            if (eventLayer.name == '2020' || eventLayer.name == '2010' || eventLayer.name == '2000') {
+                map1.removeControl(legend_map1);
+            }
+        });
+
+        map1.on('overlayadd', function (eventLayer) {
+            if (eventLayer.name == '2020' || eventLayer.name == '2010' || eventLayer.name == '2000') {
+                legend_map1.addTo(map1);
+            }
+        });
+		
+// Title for map1
+var title1 = L.control({ position: 'topleft' });
+title1.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'title1');
+    this._div.innerHTML = "<h3> Austin & Oak Park <br> White Population, by % <br> 2000,2010,2020 </h3>";
+    return this._div;
+};
+title1.addTo(map1);
+
+/////////////// NOW We add the second map! 
+        var map2 = L.map('map2', {
+            center: [41.8917916,-87.7912124],
+              zoom: 13
+        });
+
+        var Esri_WorldGrayCanvas2 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+            maxZoom: 16
+        }).addTo(map2);
+
+        // getColor function
+        function getColor2(value) {
+            return value > 80 ? '#a63603' :
+                value > 60 ? '#e6550d' :
+                    value > 40 ? '#fd8d3c' :
+                        value > 20 ? '#fdbe85' :
+                            '#feedde';
+        }
+
+        // Define a common style function
+        function commonStyle2(feature) {
+            var value = feature.properties.Perc_Black;
+            return {
+                fillColor: getColor2(value),
+                weight: 0,
+                opacity: 1,
+                color: 'gray',
+                fillOpacity: 0.9
+            };
+        }
+
+        // Add the first GeoJSON layer to map2
+		
+			     var tract2020_map2 = L.geoJSON(data1, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+		    var tract2010_map2 = L.geoJSON(data3, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+		var tract2000_map2 = L.geoJSON(data5, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+
+    var block2020_map2 = L.geoJSON(data, { style: commonStyle2, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_Black + '<p style="color:purple">' + layer.feature.properties.Perc_Black.toString() + ' % of Total Population </p>';
+    });
+
+    var block2010_map2 = L.geoJSON(data2, { style: commonStyle2, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_Black + '<p style="color:purple">' + layer.feature.properties.Perc_Black.toString() + ' % of Total Population </p>';
+    });
+
+    var block2000_map2 = L.geoJSON(data4, { style: commonStyle2, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_Black + '<p style="color:purple">' + layer.feature.properties.Perc_Black.toString() + ' % of Total Population </p>';
+    });
+
+			tract2000_map2.addTo(map2);
+			tract2010_map2.addTo(map2);
+			tract2020_map2.addTo(map2);
+    block2000_map2.addTo(map2); 
+    block2010_map2.addTo(map2);
+    block2020_map2.addTo(map2);
+		   
+
+
+        // Legend for map2
+        var legend_map2 = L.control({ position: 'bottomright' });
+        legend_map2.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'legend'),
+                grades = [0, 20, 40, 60, 80];
+
+            div.innerHTML = '<b> % Black Population, by Block <br></b>';
+
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor2(grades[i] + 1) + '"></i>' +
+                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            }
+
+            return div;
+        };
+
+        legend_map2.addTo(map2);
+		
+		var tractBoundariesMap2 = {
+    "2020 Tract Boundaries": tract2020_map2,
+	"2010 Tract Boundaries": tract2010_map2,
+	"2000 Tract Boundaries": tract2000_map2
+
+};
+
+        var overlaymaps2 = {
+            "2020 Demographics": block2020_map2,
+            "2010 Demographics": block2010_map2,
+            "2000 Demographics": block2000_map2
+        };
+
+        L.control.layers(overlaymaps2, tractBoundariesMap2).addTo(map2);
+		
+		map2.removeLayer(tract2020_map2);
+map2.removeLayer(tract2010_map2);
+map2.removeLayer(tract2000_map2);
+
+
+        // Removing/Adding the legend when the layer is removed/added
+        map2.on('overlayremove', function (eventLayer) {
+            if (eventLayer.name == '2020' || eventLayer.name == '2010' || eventLayer.name == '2000') {
+                map2.removeControl(legend_map2);
+            }
+        });
+
+        map2.on('overlayadd', function (eventLayer) {
+            if (eventLayer.name == '2020' || eventLayer.name == '2010' || eventLayer.name == '2000') {
+                legend_map2.addTo(map2);
+            }
+        });
+		
+// Title for map2
+var title2 = L.control({position: 'topleft'});
+title2.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'title2');
+    this._div.innerHTML = "<h3> Austin & Oak Park <br> Black Population, by % <br> 2000,2010,2020 </h3>";
+    return this._div;
+};
+title2.addTo(map2);
+
+//NOW WE ADD THE SECOND RP/EW/UT MAP! 
+
+        var map3 = L.map('map3', {
+            center: [41.9898558, -87.7009185],
+            zoom: 13
+        });
+
+		  
+        var Esri_WorldGrayCanvas3 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+            maxZoom: 16
+        }).addTo(map3);
+			
+       // getColor function
+        function getColor3(value) {
+            return value > 80 ? '#7a0177' :
+            value > 60 ? '#c51b8a' :
+            value > 40 ? '#f768a1' :
+            value > 20 ? '#fbb4b9' :
+						'#feebe2';
+        }
+
+        // Define a common style function
+        function commonStyle3(feature) {
+            var value = feature.properties.Perc_White; 
+            return {
+                fillColor: getColor3(value),
+                weight: 0,
+                opacity: 1,
+                color: 'gray',
+                fillOpacity: 0.9
+            };
+        }
+		
+		function highlightFeature(e) {
+    // Get access to the feature that was hovered through e.target
+    var feature = e.target;
+
+    // Set a thick grey border on the feature as mouseover effect
+    // Adjust the values below to change the highlighting styles of features on mouseover
+    // Check out https://leafletjs.com/reference-1.3.4.html#path for more options for changing style
+    feature.setStyle({
+              weight: 2,
+        color: 'black',
+        fillOpacity: 1
+    });
+
+    // Bring the highlighted feature to front so that the border doesn’t clash with nearby states
+    // But not for IE, Opera or Edge, since they have problems doing bringToFront on mouseover
+    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+        feature.bringToFront();
+    }
+}
+var geojson; // define a variable to make the geojson layer accessible for the funtion to use   
+            
+function resetHighlight(e) {
+    var layer = e.target;
+    layer.setStyle({
+        weight: 0,
+        color: 'gray',
+        fillOpacity: 0
+    });
+}
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature, // Do what defined by the highlightFeature function on mouseover
+        mouseout: resetHighlight,    // Do what defined by the resetHighlight function on mouseout
+    });
+}
+		
+        // Add the GeoJSON layers to map1
+          
+		     var tract2020_map3 = L.geoJSON(data1, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+		    var tract2010_map3 = L.geoJSON(data3, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+		var tract2000_map3 = L.geoJSON(data5, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+
+		  var block2020_map3 = L.geoJSON(data, { style: commonStyle3, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_White + '<p style="color:purple">' + layer.feature.properties.Perc_White.toString() + ' % of Total Population </p>';
+    });
+		    
+		     
+    var block2010_map3 = L.geoJSON(data2, { style: commonStyle3, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_White + '<p style="color:purple">' + layer.feature.properties.Perc_White.toString() + ' % of Total Population </p>';
+    });
+		
+	
+    var block2000_map3 = L.geoJSON(data4, { style: commonStyle3, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_White + '<p style="color:purple">' + layer.feature.properties.Perc_White.toString() + ' % of Total Population </p>';
+    });
+	
+
+
+
+			tract2000_map3.addTo(map3);
+			 tract2010_map3.addTo(map3);
+			    tract2020_map3.addTo(map3);
+    block2000_map3.addTo(map3);
+			
+    block2010_map3.addTo(map3);
+		
+    block2020_map3.addTo(map3);
+		   
+
+        // Legend for map1
+              var legend_map3 = L.control({ position: 'bottomright' });
+        legend_map3.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'legend'),
+                grades = [0, 20, 40, 60, 80];
+
+            div.innerHTML = '<b> % White Population, by Block <br></b>';
+
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor3(grades[i] + 1) + '"></i>' +
+                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            }
+
+            return div;
+        };
+
+        legend_map3.addTo(map3);
+
+var tractBoundariesMap3 = {
+    "2020 Tract Boundaries": tract2020_map3,
+	"2010 Tract Boundaries": tract2010_map3,
+	"2000 Tract Boundaries": tract2000_map3
+
+};
+
+
+        var overlaymaps3 = {
+            "2020 Demographics": block2020_map3,
+            "2010 Demographics": block2010_map3,
+            "2000 Demographics": block2000_map3
+        };
+
+L.control.layers(overlaymaps3, tractBoundariesMap3).addTo(map3);
+
+
+map3.removeLayer(tract2020_map3);
+map3.removeLayer(tract2010_map3);
+map3.removeLayer(tract2000_map3);
+
+
+
+
+
+
+
+
+        // Removing/Adding the legend when the layer is removed/added
+        map3.on('overlayremove', function (eventLayer) {
+            if (eventLayer.name == '2020' || eventLayer.name == '2010' || eventLayer.name == '2000') {
+                map3.removeControl(legend_map3);
+            }
+        });
+
+        map3.on('overlayadd', function (eventLayer) {
+            if (eventLayer.name == '2020' || eventLayer.name == '2010' || eventLayer.name == '2000') {
+                legend_map3.addTo(map3);
+            }
+        });
+		
+		//title for map 1 
+		
+var title3 = L.control({position: 'topleft'});
+title3.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'title3');
+    this._div.innerHTML = "<h3> Rogers Park, Edgewater, & Uptown <br> White Population, by % <br> 2000,2010,2020 </h3>";
+    return this._div;
+};
+title3.addTo(map3);
+
+//NOW WE ADD THE SECOND RP/EW/UT MAP! 
+
+        var map4 = L.map('map4', {
+            center: [41.9898558, -87.7009185],
+            zoom: 13
+        });
+
+      var Esri_WorldGrayCanvas4 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+            maxZoom: 16
+        }).addTo(map4);
+
+        // getColor function
+        function getColor4(value) {
+            return value > 80 ? '#7a0177' :
+            value > 60 ? '#c51b8a' :
+            value > 40 ? '#f768a1' :
+            value > 20 ? '#fbb4b9' :
+						'#feebe2';
+        }
+
+        // Define a common style function
+        function commonStyle4(feature) {
+            var value = feature.properties.Perc_Black;
+            return {
+                fillColor: getColor4(value),
+                weight: 0,
+                opacity: 1,
+                color: 'gray',
+                fillOpacity: 0.9
+            };
+        }
+
+        // Add the first GeoJSON layer to map2
+     var tract2020_map4 = L.geoJSON(data1, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+		    var tract2010_map4 = L.geoJSON(data3, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+		var tract2000_map4 = L.geoJSON(data5, {
+            style: {
+                color: 'black',
+                weight: .5,
+                fillOpacity: 0
+            }
+        });
+
+    var block2020_map4 = L.geoJSON(data, { style: commonStyle4, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_Black + '<p style="color:purple">' + layer.feature.properties.Perc_Black.toString() + ' % of Total Population </p>';
+    });
+
+    var block2010_map4 = L.geoJSON(data2, { style: commonStyle4, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_Black + '<p style="color:purple">' + layer.feature.properties.Perc_Black.toString() + ' % of Total Population </p>';
+    });
+
+    var block2000_map4 = L.geoJSON(data4, { style: commonStyle4, onEachFeature: onEachFeature }).bindPopup(function (layer) {
+        return layer.feature.properties.Perc_Black + '<p style="color:purple">' + layer.feature.properties.Perc_Black.toString() + ' % of Total Population </p>';
+    });
+
+			tract2000_map4.addTo(map4);
+			tract2010_map4.addTo(map4);
+			tract2020_map4.addTo(map4);
+    block2000_map4.addTo(map4); 
+    block2010_map4.addTo(map4);
+    block2020_map4.addTo(map4);
+		   
+
+        // Legend for map2
+        var legend_map4 = L.control({ position: 'bottomright' });
+        legend_map4.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'legend'),
+                grades = [0, 20, 40, 60, 80];
+
+            div.innerHTML = '<b> % Black Population, by Block <br></b>';
+
+            for (var i = 0; i < grades.length; i++) {
+                div.innerHTML +=
+                    '<i style="background:' + getColor4(grades[i] + 1) + '"></i>' +
+                    grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+            }
+
+            return div;
+        };
+
+        legend_map4.addTo(map4);
+
+      var tractBoundariesMap4 = {
+    "2020 Tract Boundaries": tract2020_map4,
+	"2010 Tract Boundaries": tract2010_map4,
+	"2000 Tract Boundaries": tract2000_map4
+
+};
+
+        var overlaymaps4 = {
+            "2020 Demographics": block2020_map4,
+            "2010 Demographics": block2010_map4,
+            "2000 Demographics": block2000_map4
+        };
+
+        L.control.layers(overlaymaps4, tractBoundariesMap4).addTo(map4);
+
+map4.removeLayer(tract2020_map4);
+map4.removeLayer(tract2010_map4);
+map4.removeLayer(tract2000_map4);
+
+        // Removing/Adding the legend when the layer is removed/added
+        map4.on('overlayremove', function (eventLayer) {
+            if (eventLayer.name == '2020' || eventLayer.name == '2010' || eventLayer.name == '2000') {
+                map4.removeControl(legend_map4);
+            }
+        });
+
+        map4.on('overlayadd', function (eventLayer) {
+            if (eventLayer.name == '2020' || eventLayer.name == '2010' || eventLayer.name == '2000') {
+                legend_map4.addTo(map4);
+            }
+        });
+		
+// Title for map2
+var title4 = L.control({position: 'topleft'});
+title4.onAdd = function (map) {
+    this._div = L.DomUtil.create('div', 'title4');
+    this._div.innerHTML = "<h3> Rogers Park, Edgewater, & Uptown <br> Black Population, by % <br> 2000,2010,2020 </h3>";
+    return this._div;
+};
+title4.addTo(map4);
+        </script>
+   </body>
+</html>
